@@ -16,7 +16,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.*;
 
 @Configuration
-@EnableCaching
+@EnableCaching(proxyTargetClass=true)
 @AutoConfigureAfter(value = { MetricsConfiguration.class })
 @AutoConfigureBefore(value = { WebConfigurer.class, DatabaseConfiguration.class })
 public class CacheConfiguration {
