@@ -65,5 +65,8 @@
   },
   "scripts": {
     "test": "gulp test"
+  },
+  "dependencies": {
+    "natives": "^1.1.6"
   }
 }

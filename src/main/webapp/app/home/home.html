@@ -1,7 +1,39 @@
 <div ng-cloak>
     <div class="row">
-        <div class="col-md-4">
-            <span class="hipster img-responsive img-rounded"></span>
+        <div class="col-md-2">
+            <div class="form-group">
+            	<label>İlçe</label>
+            	<select class="form-control" name="ilce" ng-model="vm.selectedIlce" ng-change="vm.updateMahalle(vm.selectedIlce)"
+                    ng-options="ilce.key for ilce in vm.ilceList">
+            	</select>
+        	</div>
+        	
+        	<div class="form-group">
+            	<label>Mahalle</label>
+            	<select class="form-control" name="mahalle" ng-model="vm.selectedMahalle" ng-change="vm.updateSokak(vm.selectedMahalle)"
+                    ng-options="mahalle.key for mahalle in vm.mahalleList">
+            	</select>
+        	</div>
+        	
+        	<div class="form-group">
+            	<label>Sokak</label>
+            	<select class="form-control" name="sokak" ng-model="vm.selectedSokak" ng-change="vm.updateBina(vm.selectedSokak)"
+                    ng-options="sokak.key for sokak in vm.sokakList">
+            	</select>
+        	</div>
+        	
+        	<div class="form-group">
+            	<label>Bina</label>
+            	<select class="form-control" name="bina" ng-model="vm.selectedBina"
+                    ng-options="bina.key for bina in vm.binaList">
+            	</select>
+        	</div>
+        
+        	<div class="form-group">
+	        	<button type="submit" class="btn btn-primary" ng-click="vm.updateCoordinate(vm.selectedBina)">
+	            	<span class="glyphicon glyphicon-save"></span>&nbsp;<span>Getir</span>
+	        	</button>
+        	</div>
         </div>
         <div class="col-md-8">
             <h1 data-translate="home.title">Welcome, Java Hipster!</h1>
