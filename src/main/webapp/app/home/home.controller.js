@@ -5,9 +5,9 @@
         .module('navigatorbackendApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state','User','AlertService'];
+    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state','User','AlertService','NgMap'];
 
-    function HomeController ($scope, Principal, LoginService, $state,User,AlertService) {
+    function HomeController ($scope, Principal, LoginService, $state,User,AlertService,NgMap) {
         var vm = this;
 
         vm.account = null;
@@ -20,12 +20,32 @@
         vm.updateBina = updateBina;
         vm.updateCoordinate = updateCoordinate;
         
+        var marker = new google.maps.Marker();
+        //var map = NgMap.getMap();
+        var map ;
+        
+        marker.addListener('click', function() {
+//            map.setZoom(8);
+//            map.setCenter(marker.getPosition());
+        	vm.foo();
+          });
+        
         $scope.$on('authenticationSuccess', function() {
             getAccount();
         });
 
         getAccount();
         
+        vm.foo = function() {
+            alert('it works');
+          }
+        
+        NgMap.getMap().then(function(mapTemp) {
+            map = mapTemp;
+        	console.log(map.getCenter());
+            console.log('markers', map.markers);
+            console.log('shapes', map.shapes);
+          });
         
 
         function getAccount() {
@@ -96,7 +116,14 @@
         
         function onSuccessGetCoordinate(data, headers) {
         	vm.coordinates = data;
-           
+
+            var latlng = new google.maps.LatLng(vm.coordinates[1].value, vm.coordinates[0].value);
+            marker.setPosition(latlng);
+            
+            map.setCenter(latlng);
+            map.setZoom(18);
+            //map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 18));
+            marker.setMap(map);
         }
     }
 })();
