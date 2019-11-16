@@ -8,7 +8,8 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('home', {
+        $stateProvider
+        .state('home', {
             parent: 'app',
             url: '/',
             data: {
@@ -27,6 +28,28 @@
                     return $translate.refresh();
                 }]
             }
+        })
+        .state('home.new', {
+            url: '/home/new',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/home/home-dialog.html',
+                    controller: 'PopupController',
+                    controllerAs: 'vm',
+                    size: 'md',
+                    resolve: {
+                        
+                    }
+                }).result.then(function() {
+                    $state.go('user-management', null, { reload: true });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
         });
+        ;
     }
 })();

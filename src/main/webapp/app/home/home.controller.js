@@ -5,9 +5,9 @@
         .module('navigatorbackendApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state','User','AlertService','NgMap'];
+    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state','User','AlertService','NgMap','$sessionStorage'];
 
-    function HomeController ($scope, Principal, LoginService, $state,User,AlertService,NgMap) {
+    function HomeController ($scope, Principal, LoginService, $state,User,AlertService,NgMap,$sessionStorage) {
         var vm = this;
 
         vm.account = null;
@@ -27,7 +27,13 @@
         marker.addListener('click', function() {
 //            map.setZoom(8);
 //            map.setCenter(marker.getPosition());
-        	vm.foo();
+        	//vm.foo();
+        	$sessionStorage.selectedIlce = vm.selectedIlce ;
+        	$sessionStorage.selectedMahalle = vm.selectedMahalle ;
+        	$sessionStorage.selectedSokak = vm.selectedSokak ;
+        	$sessionStorage.selectedBina = vm.selectedBina ;
+        	$sessionStorage.coordinates = vm.coordinates ;
+        	$state.go('home.new');
           });
         
         $scope.$on('authenticationSuccess', function() {
