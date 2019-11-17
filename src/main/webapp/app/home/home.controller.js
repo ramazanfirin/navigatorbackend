@@ -5,9 +5,9 @@
         .module('navigatorbackendApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state','User','AlertService','NgMap','$sessionStorage'];
+    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state','User','AlertService','NgMap','$sessionStorage','Station','Vehicle','Task'];
 
-    function HomeController ($scope, Principal, LoginService, $state,User,AlertService,NgMap,$sessionStorage) {
+    function HomeController ($scope, Principal, LoginService, $state,User,AlertService,NgMap,$sessionStorage,Station,Vehicle,Task) {
         var vm = this;
 
         vm.account = null;
@@ -35,6 +35,8 @@
         	$sessionStorage.coordinates = vm.coordinates ;
         	$state.go('home.new');
           });
+        
+        
         
         $scope.$on('authenticationSuccess', function() {
             getAccount();

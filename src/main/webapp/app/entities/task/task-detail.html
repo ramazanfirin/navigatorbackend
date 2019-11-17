@@ -1,0 +1,59 @@
+
+<div>
+    <h2><span data-translate="navigatorbackendApp.task.detail.title">Task</span> {{vm.task.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="navigatorbackendApp.task.description">Description</span></dt>
+        <dd>
+            <span>{{vm.task.description}}</span>
+        </dd>
+        <dt><span data-translate="navigatorbackendApp.task.insertDate">Insert Date</span></dt>
+        <dd>
+            <span>{{vm.task.insertDate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="navigatorbackendApp.task.complated">Complated</span></dt>
+        <dd>
+            <span>{{vm.task.complated}}</span>
+        </dd>
+        <dt><span data-translate="navigatorbackendApp.task.lat">Lat</span></dt>
+        <dd>
+            <span>{{vm.task.lat}}</span>
+        </dd>
+        <dt><span data-translate="navigatorbackendApp.task.lng">Lng</span></dt>
+        <dd>
+            <span>{{vm.task.lng}}</span>
+        </dd>
+        <dt><span data-translate="navigatorbackendApp.task.vehicle">Vehicle</span></dt>
+        <dd>
+            <a ui-sref="vehicle-detail({id:vm.task.vehicle.id})">{{vm.task.vehicle.id}}</a>
+        </dd>
+        <dt><span data-translate="navigatorbackendApp.task.district">District</span></dt>
+        <dd>
+            <a ui-sref="district-detail({id:vm.task.district.id})">{{vm.task.district.id}}</a>
+        </dd>
+        <dt><span data-translate="navigatorbackendApp.task.town">Town</span></dt>
+        <dd>
+            <a ui-sref="town-detail({id:vm.task.town.id})">{{vm.task.town.id}}</a>
+        </dd>
+        <dt><span data-translate="navigatorbackendApp.task.street">Street</span></dt>
+        <dd>
+            <a ui-sref="street-detail({id:vm.task.street.id})">{{vm.task.street.id}}</a>
+        </dd>
+        <dt><span data-translate="navigatorbackendApp.task.building">Building</span></dt>
+        <dd>
+            <a ui-sref="building-detail({id:vm.task.building.id})">{{vm.task.building.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="task-detail.edit({id:vm.task.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

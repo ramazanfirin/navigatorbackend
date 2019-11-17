@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span data-translate="navigatorbackendApp.town.detail.title">Town</span> {{vm.town.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="navigatorbackendApp.town.name">Name</span></dt>
+        <dd>
+            <span>{{vm.town.name}}</span>
+        </dd>
+        <dt><span data-translate="navigatorbackendApp.town.lat">Lat</span></dt>
+        <dd>
+            <span>{{vm.town.lat}}</span>
+        </dd>
+        <dt><span data-translate="navigatorbackendApp.town.lng">Lng</span></dt>
+        <dd>
+            <span>{{vm.town.lng}}</span>
+        </dd>
+        <dt><span data-translate="navigatorbackendApp.town.district">District</span></dt>
+        <dd>
+            <a ui-sref="district-detail({id:vm.town.district.id})">{{vm.town.district.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="town-detail.edit({id:vm.town.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

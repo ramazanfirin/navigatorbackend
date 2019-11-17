@@ -1,0 +1,100 @@
+entity City{
+	name String required
+	lat String
+	lng String
+}
+
+entity District{
+	name String required
+	lat String
+	lng String
+}
+
+entity Town{
+	name String required
+	lat String
+	lng String
+}
+
+entity Street{
+	name String required
+	lat String
+	lng String
+}
+
+entity Building{
+	number String required
+	name String required
+	lat String
+	lng String
+	
+}
+
+entity Station{
+	name String required
+	lat String
+	lng String
+	
+}
+
+
+entity Vehicle{
+	plate String 
+	name String 
+	description String 
+	lat String
+	lng String
+	
+}
+
+entity Task{
+	description String
+	insertDate Instant
+	complated Boolean
+	lat String
+	lng String
+}
+
+relationship ManyToOne {
+  District{city} to City
+}
+
+relationship ManyToOne {
+  Town{district} to District
+}
+
+relationship ManyToOne {
+  Street{town} to Town
+}
+
+relationship ManyToOne {
+  Building{street} to Street
+}
+
+relationship ManyToOne {
+  Station{city} to City
+}
+
+relationship ManyToOne {
+  Vehicle{station} to Station
+}
+
+relationship ManyToOne {
+  Task{vehicle} to Vehicle
+}
+
+relationship ManyToOne {
+  Task{district} to District
+}
+
+relationship ManyToOne {
+  Task{town} to Town
+}
+
+relationship ManyToOne {
+  Task{street} to Street
+}
+
+relationship ManyToOne {
+  Task{building} to Building
+}

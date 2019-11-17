@@ -7,6 +7,14 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
+                "city": "City",
+                "district": "District",
+                "town": "Town",
+                "street": "Street",
+                "building": "Building",
+                "station": "Station",
+                "vehicle": "Vehicle",
+                "task": "Task",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

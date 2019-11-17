@@ -41,6 +41,14 @@ public class CacheConfiguration {
             cm.createCache(com.mastertek.navigator.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.mastertek.navigator.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.mastertek.navigator.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.mastertek.navigator.domain.City.class.getName(), jcacheConfiguration);
+            cm.createCache(com.mastertek.navigator.domain.District.class.getName(), jcacheConfiguration);
+            cm.createCache(com.mastertek.navigator.domain.Town.class.getName(), jcacheConfiguration);
+            cm.createCache(com.mastertek.navigator.domain.Street.class.getName(), jcacheConfiguration);
+            cm.createCache(com.mastertek.navigator.domain.Building.class.getName(), jcacheConfiguration);
+            cm.createCache(com.mastertek.navigator.domain.Station.class.getName(), jcacheConfiguration);
+            cm.createCache(com.mastertek.navigator.domain.Vehicle.class.getName(), jcacheConfiguration);
+            cm.createCache(com.mastertek.navigator.domain.Task.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

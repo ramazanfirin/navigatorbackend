@@ -1,0 +1,84 @@
+<div>
+    <h2 data-translate="navigatorbackendApp.task.home.title">Tasks</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="task.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="navigatorbackendApp.task.home.createLabel">
+                        Create new Task
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="navigatorbackendApp.task.description">Description</span></th>
+                    <th><span data-translate="navigatorbackendApp.task.insertDate">Insert Date</span></th>
+                    <th><span data-translate="navigatorbackendApp.task.complated">Complated</span></th>
+                    <th><span data-translate="navigatorbackendApp.task.lat">Lat</span></th>
+                    <th><span data-translate="navigatorbackendApp.task.lng">Lng</span></th>
+                    <th><span data-translate="navigatorbackendApp.task.vehicle">Vehicle</span></th>
+                    <th><span data-translate="navigatorbackendApp.task.district">District</span></th>
+                    <th><span data-translate="navigatorbackendApp.task.town">Town</span></th>
+                    <th><span data-translate="navigatorbackendApp.task.street">Street</span></th>
+                    <th><span data-translate="navigatorbackendApp.task.building">Building</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="task in vm.tasks track by task.id">
+                    <td><a ui-sref="task-detail({id:task.id})">{{task.id}}</a></td>
+                    <td>{{task.description}}</td>
+                    <td>{{task.insertDate | date:'medium'}}</td>
+                    <td>{{task.complated}}</td>
+                    <td>{{task.lat}}</td>
+                    <td>{{task.lng}}</td>
+                    <td>
+                        <a ui-sref="vehicle-detail({id:task.vehicle.id})">{{task.vehicle.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="district-detail({id:task.district.id})">{{task.district.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="town-detail({id:task.town.id})">{{task.town.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="street-detail({id:task.street.id})">{{task.street.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="building-detail({id:task.building.id})">{{task.building.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="task-detail({id:task.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="task.edit({id:task.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="task.delete({id:task.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

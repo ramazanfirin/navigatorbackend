@@ -77,6 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/test/**")
             .antMatchers("/h2-console/**")
             .antMatchers("/api/cbs-data-controller/**")
+            .antMatchers("/api/tasks/**")
             
             ;
     }
