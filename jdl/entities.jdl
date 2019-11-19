@@ -2,24 +2,28 @@ entity City{
 	name String required
 	lat String
 	lng String
+	completed Boolean
 }
 
 entity District{
 	name String required
 	lat String
 	lng String
+	completed Boolean
 }
 
 entity Town{
 	name String required
 	lat String
 	lng String
+	completed Boolean
 }
 
 entity Street{
 	name String required
 	lat String
 	lng String
+	completed Boolean
 }
 
 entity Building{

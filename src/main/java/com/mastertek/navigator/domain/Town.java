@@ -33,6 +33,9 @@ public class Town implements Serializable {
     @Column(name = "lng")
     private String lng;
 
+    @Column(name = "completed")
+    private Boolean completed;
+
     @ManyToOne
     private District district;
 
@@ -84,6 +87,19 @@ public class Town implements Serializable {
         this.lng = lng;
     }
 
+    public Boolean isCompleted() {
+        return completed;
+    }
+
+    public Town completed(Boolean completed) {
+        this.completed = completed;
+        return this;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
+
     public District getDistrict() {
         return district;
     }
@@ -125,6 +141,7 @@ public class Town implements Serializable {
             ", name='" + getName() + "'" +
             ", lat='" + getLat() + "'" +
             ", lng='" + getLng() + "'" +
+            ", completed='" + isCompleted() + "'" +
             "}";
     }
 }

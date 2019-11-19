@@ -47,6 +47,9 @@ public class DistrictResourceIntTest {
     private static final String DEFAULT_LNG = "AAAAAAAAAA";
     private static final String UPDATED_LNG = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_COMPLETED = false;
+    private static final Boolean UPDATED_COMPLETED = true;
+
     @Autowired
     private DistrictRepository districtRepository;
 
@@ -87,7 +90,8 @@ public class DistrictResourceIntTest {
         District district = new District()
             .name(DEFAULT_NAME)
             .lat(DEFAULT_LAT)
-            .lng(DEFAULT_LNG);
+            .lng(DEFAULT_LNG)
+            .completed(DEFAULT_COMPLETED);
         return district;
     }
 
@@ -114,6 +118,7 @@ public class DistrictResourceIntTest {
         assertThat(testDistrict.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testDistrict.getLat()).isEqualTo(DEFAULT_LAT);
         assertThat(testDistrict.getLng()).isEqualTo(DEFAULT_LNG);
+        assertThat(testDistrict.isCompleted()).isEqualTo(DEFAULT_COMPLETED);
     }
 
     @Test
@@ -166,7 +171,8 @@ public class DistrictResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(district.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].lat").value(hasItem(DEFAULT_LAT.toString())))
-            .andExpect(jsonPath("$.[*].lng").value(hasItem(DEFAULT_LNG.toString())));
+            .andExpect(jsonPath("$.[*].lng").value(hasItem(DEFAULT_LNG.toString())))
+            .andExpect(jsonPath("$.[*].completed").value(hasItem(DEFAULT_COMPLETED.booleanValue())));
     }
 
     @Test
@@ -182,7 +188,8 @@ public class DistrictResourceIntTest {
             .andExpect(jsonPath("$.id").value(district.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.lat").value(DEFAULT_LAT.toString()))
-            .andExpect(jsonPath("$.lng").value(DEFAULT_LNG.toString()));
+            .andExpect(jsonPath("$.lng").value(DEFAULT_LNG.toString()))
+            .andExpect(jsonPath("$.completed").value(DEFAULT_COMPLETED.booleanValue()));
     }
 
     @Test
@@ -207,7 +214,8 @@ public class DistrictResourceIntTest {
         updatedDistrict
             .name(UPDATED_NAME)
             .lat(UPDATED_LAT)
-            .lng(UPDATED_LNG);
+            .lng(UPDATED_LNG)
+            .completed(UPDATED_COMPLETED);
 
         restDistrictMockMvc.perform(put("/api/districts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -221,6 +229,7 @@ public class DistrictResourceIntTest {
         assertThat(testDistrict.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testDistrict.getLat()).isEqualTo(UPDATED_LAT);
         assertThat(testDistrict.getLng()).isEqualTo(UPDATED_LNG);
+        assertThat(testDistrict.isCompleted()).isEqualTo(UPDATED_COMPLETED);
     }
 
     @Test

@@ -33,6 +33,9 @@ public class Street implements Serializable {
     @Column(name = "lng")
     private String lng;
 
+    @Column(name = "completed")
+    private Boolean completed;
+
     @ManyToOne
     private Town town;
 
@@ -84,6 +87,19 @@ public class Street implements Serializable {
         this.lng = lng;
     }
 
+    public Boolean isCompleted() {
+        return completed;
+    }
+
+    public Street completed(Boolean completed) {
+        this.completed = completed;
+        return this;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
+
     public Town getTown() {
         return town;
     }
@@ -125,6 +141,7 @@ public class Street implements Serializable {
             ", name='" + getName() + "'" +
             ", lat='" + getLat() + "'" +
             ", lng='" + getLng() + "'" +
+            ", completed='" + isCompleted() + "'" +
             "}";
     }
 }

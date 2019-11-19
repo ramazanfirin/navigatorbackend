@@ -22,6 +22,7 @@
                     <th><span data-translate="navigatorbackendApp.district.name">Name</span></th>
                     <th><span data-translate="navigatorbackendApp.district.lat">Lat</span></th>
                     <th><span data-translate="navigatorbackendApp.district.lng">Lng</span></th>
+                    <th><span data-translate="navigatorbackendApp.district.completed">Completed</span></th>
                     <th><span data-translate="navigatorbackendApp.district.city">City</span></th>
                     <th></th>
                 </tr>
@@ -32,6 +33,7 @@
                     <td>{{district.name}}</td>
                     <td>{{district.lat}}</td>
                     <td>{{district.lng}}</td>
+                    <td>{{district.completed}}</td>
                     <td>
                         <a ui-sref="city-detail({id:district.city.id})">{{district.city.id}}</a>
                     </td>

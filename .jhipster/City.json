@@ -16,6 +16,10 @@
         {
             "fieldName": "lng",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "completed",
+            "fieldType": "Boolean"
         }
     ],
     "changelogDate": "20191116121650",

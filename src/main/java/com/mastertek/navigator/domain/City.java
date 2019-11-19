@@ -33,6 +33,9 @@ public class City implements Serializable {
     @Column(name = "lng")
     private String lng;
 
+    @Column(name = "completed")
+    private Boolean completed;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -80,6 +83,19 @@ public class City implements Serializable {
     public void setLng(String lng) {
         this.lng = lng;
     }
+
+    public Boolean isCompleted() {
+        return completed;
+    }
+
+    public City completed(Boolean completed) {
+        this.completed = completed;
+        return this;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -109,6 +125,7 @@ public class City implements Serializable {
             ", name='" + getName() + "'" +
             ", lat='" + getLat() + "'" +
             ", lng='" + getLng() + "'" +
+            ", completed='" + isCompleted() + "'" +
             "}";
     }
 }

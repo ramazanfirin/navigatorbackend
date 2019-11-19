@@ -107,6 +107,7 @@
                                 name: null,
                                 lat: null,
                                 lng: null,
+                                completed: null,
                                 id: null
                             };
                         }

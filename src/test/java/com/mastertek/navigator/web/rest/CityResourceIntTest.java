@@ -47,6 +47,9 @@ public class CityResourceIntTest {
     private static final String DEFAULT_LNG = "AAAAAAAAAA";
     private static final String UPDATED_LNG = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_COMPLETED = false;
+    private static final Boolean UPDATED_COMPLETED = true;
+
     @Autowired
     private CityRepository cityRepository;
 
@@ -87,7 +90,8 @@ public class CityResourceIntTest {
         City city = new City()
             .name(DEFAULT_NAME)
             .lat(DEFAULT_LAT)
-            .lng(DEFAULT_LNG);
+            .lng(DEFAULT_LNG)
+            .completed(DEFAULT_COMPLETED);
         return city;
     }
 
@@ -114,6 +118,7 @@ public class CityResourceIntTest {
         assertThat(testCity.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testCity.getLat()).isEqualTo(DEFAULT_LAT);
         assertThat(testCity.getLng()).isEqualTo(DEFAULT_LNG);
+        assertThat(testCity.isCompleted()).isEqualTo(DEFAULT_COMPLETED);
     }
 
     @Test
@@ -166,7 +171,8 @@ public class CityResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(city.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].lat").value(hasItem(DEFAULT_LAT.toString())))
-            .andExpect(jsonPath("$.[*].lng").value(hasItem(DEFAULT_LNG.toString())));
+            .andExpect(jsonPath("$.[*].lng").value(hasItem(DEFAULT_LNG.toString())))
+            .andExpect(jsonPath("$.[*].completed").value(hasItem(DEFAULT_COMPLETED.booleanValue())));
     }
 
     @Test
@@ -182,7 +188,8 @@ public class CityResourceIntTest {
             .andExpect(jsonPath("$.id").value(city.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.lat").value(DEFAULT_LAT.toString()))
-            .andExpect(jsonPath("$.lng").value(DEFAULT_LNG.toString()));
+            .andExpect(jsonPath("$.lng").value(DEFAULT_LNG.toString()))
+            .andExpect(jsonPath("$.completed").value(DEFAULT_COMPLETED.booleanValue()));
     }
 
     @Test
@@ -207,7 +214,8 @@ public class CityResourceIntTest {
         updatedCity
             .name(UPDATED_NAME)
             .lat(UPDATED_LAT)
-            .lng(UPDATED_LNG);
+            .lng(UPDATED_LNG)
+            .completed(UPDATED_COMPLETED);
 
         restCityMockMvc.perform(put("/api/cities")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -221,6 +229,7 @@ public class CityResourceIntTest {
         assertThat(testCity.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testCity.getLat()).isEqualTo(UPDATED_LAT);
         assertThat(testCity.getLng()).isEqualTo(UPDATED_LNG);
+        assertThat(testCity.isCompleted()).isEqualTo(UPDATED_COMPLETED);
     }
 
     @Test

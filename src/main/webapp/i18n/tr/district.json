@@ -18,6 +18,7 @@
             "name": "Name",
             "lat": "Lat",
             "lng": "Lng",
+            "completed": "Completed",
             "city": "City"
         }
     }

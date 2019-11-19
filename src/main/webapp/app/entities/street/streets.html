@@ -22,6 +22,7 @@
                     <th><span data-translate="navigatorbackendApp.street.name">Name</span></th>
                     <th><span data-translate="navigatorbackendApp.street.lat">Lat</span></th>
                     <th><span data-translate="navigatorbackendApp.street.lng">Lng</span></th>
+                    <th><span data-translate="navigatorbackendApp.street.completed">Completed</span></th>
                     <th><span data-translate="navigatorbackendApp.street.town">Town</span></th>
                     <th></th>
                 </tr>
@@ -32,6 +33,7 @@
                     <td>{{street.name}}</td>
                     <td>{{street.lat}}</td>
                     <td>{{street.lng}}</td>
+                    <td>{{street.completed}}</td>
                     <td>
                         <a ui-sref="town-detail({id:street.town.id})">{{street.town.id}}</a>
                     </td>
