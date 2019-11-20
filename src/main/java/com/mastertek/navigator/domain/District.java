@@ -34,7 +34,7 @@ public class District implements Serializable {
     private String lng;
 
     @Column(name = "completed")
-    private Boolean completed;
+    private Boolean completed = false;
 
     @ManyToOne
     private City city;

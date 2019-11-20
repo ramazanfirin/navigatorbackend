@@ -2,7 +2,11 @@ package com.mastertek.navigator.service;
 
 import com.mastertek.navigator.NavigatorbackendApp;
 import com.mastertek.navigator.config.Constants;
+import com.mastertek.navigator.domain.City;
+import com.mastertek.navigator.domain.District;
 import com.mastertek.navigator.domain.User;
+import com.mastertek.navigator.repository.CityRepository;
+import com.mastertek.navigator.repository.DistrictRepository;
 import com.mastertek.navigator.repository.UserRepository;
 import com.mastertek.navigator.service.dto.UserDTO;
 import com.mastertek.navigator.service.util.RandomUtil;
@@ -41,6 +45,13 @@ public class KayseriDataServiceIntTest {
 
     @Autowired
     private KayseriDataServiceService dataServiceService;
+    
+    @Autowired
+    private CityRepository cityRepository;
+
+
+    @Autowired
+    private DistrictRepository districtRepository;
 
     private User user;
 
@@ -114,6 +125,20 @@ public class KayseriDataServiceIntTest {
     	
     	List<String> result =  dataServiceService.getKapiNo(dto.getValue());
     	assertThat(result).isNotNull();
+    }
+    
+    @Test
+    @Transactional
+    public void migrate() throws Exception {
+    	dataServiceService.migrate();
+    	List<City> cityList = cityRepository.findAll();
+    	assertThat(cityList.size()).isEqualTo(1);
+    	assertThat(cityList.get(0).isCompleted()).isTrue();
+    
+       	List<District> districts = districtRepository.findAll();
+    	assertThat(districts.size()).isEqualTo(16);
+    	
+ 
     }
 }
 

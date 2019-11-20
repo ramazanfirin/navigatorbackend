@@ -1,11 +1,8 @@
 package com.mastertek.navigator.service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,7 +11,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -31,16 +27,45 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mastertek.navigator.domain.Building;
+import com.mastertek.navigator.domain.City;
+import com.mastertek.navigator.domain.District;
+import com.mastertek.navigator.domain.Street;
+import com.mastertek.navigator.domain.Town;
+import com.mastertek.navigator.repository.BuildingRepository;
+import com.mastertek.navigator.repository.CityRepository;
+import com.mastertek.navigator.repository.DistrictRepository;
+import com.mastertek.navigator.repository.StreetRepository;
+import com.mastertek.navigator.repository.TownRepository;
 import com.mastertek.navigator.web.rest.vm.KeyValueDTO;
 
 
 @Service
 public class KayseriDataServiceService implements CbsDataService{
 
+	
+	@Autowired
+	CityRepository cityRepository;
+	
+	@Autowired
+	DistrictRepository districtRepository;
+	
+	@Autowired
+	TownRepository townRepository;
+	
+	@Autowired
+	StreetRepository streetRepository;
+	
+	@Autowired
+	BuildingRepository buildingRepository;
+	
     private final Logger log = LoggerFactory.getLogger(KayseriDataServiceService.class);
 
+    String cityName = "KAYSERİ";
+    
 	@Override
 	public List<KeyValueDTO> getIlceList() throws Exception {
 		String url = "http://cbs.kayseri.bel.tr/KIlce.aspx";
@@ -380,4 +405,192 @@ List<KeyValueDTO> returnList= new ArrayList<KeyValueDTO>();
         }
     }
 
+	
+	
+	public void insert() throws Exception {
+		
+		
+		City city = cityRepository.findOneByName(cityName);
+    	if(city==null) {
+    		city = new City();
+    		city.setName(cityName);
+    		city.setCompleted(false);
+    		cityRepository.save(city);
+    	}
+		
+		List<KeyValueDTO> ilceList = getIlceList();
+		for (Iterator iterator = ilceList.iterator(); iterator.hasNext();) {
+			KeyValueDTO ilce = (KeyValueDTO) iterator.next();
+			List<District> districtList = districtRepository.findByDistrictCityId(city.getId());
+			District district = getDistrict(ilce.getKey(), city,districtList);
+			if(district.isCompleted())
+				continue;
+			
+			List<KeyValueDTO> mahalleList = getMahalleList(ilce.getValue());
+			for (Iterator iterator2 = mahalleList.iterator(); iterator2.hasNext();) {
+				KeyValueDTO mahalle = (KeyValueDTO) iterator2.next();
+				List<Town> townList = townRepository.findTownByDistrictId(district.getId());
+				Town town = getTown(mahalle.getKey(), district,townList);
+				if(town.isCompleted())
+					continue;
+				
+				List<KeyValueDTO> sokakList = getSokakList(mahalle.getValue());
+				for (Iterator iterator3 = sokakList.iterator(); iterator3.hasNext();) {
+					KeyValueDTO sokak = (KeyValueDTO) iterator3.next();
+					List<Street> streetList = streetRepository.findStreetByTownId(town.getId());
+					Street street = getStreet(sokak.getKey(), town,streetList);
+					if(street.isCompleted())
+						continue;
+					
+					List<KeyValueDTO> binaList = getBinaList(sokak.getValue(),"");
+					for (Iterator iterator4 = binaList.iterator(); iterator4.hasNext();) {
+						KeyValueDTO keyValueDTO = (KeyValueDTO) iterator4.next();
+						List<Building> buildingList = buildingRepository.findBuildingByStreetId(town.getId());
+						Building building = getBuilding(keyValueDTO, street,buildingList);
+					}
+					street.setCompleted(true);
+					streetRepository.save(street);
+				}
+				town.setCompleted(true);
+				townRepository.save(town);
+			}
+			district.setCompleted(true);
+			districtRepository.save(district);
+		}
+		
+		city.setCompleted(true);
+    	cityRepository.save(city);
+	}
+	
+	public void insertBina(List<KeyValueDTO> binaList,KeyValueDTO sokak) {
+		
+	}
+	
+	public District getDistrict(String name,City city,List<District> list) {
+		District district = null;
+		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+			District districtTemp = (District) iterator.next();
+			if(districtTemp.getName().equals(name)) {
+				district = districtTemp;
+				break;
+			}
+				
+		}
+		
+		if(district == null) {
+			district = new District();
+			district.setName(name);
+			district.setCity(city);
+			district.setCompleted(false);
+			districtRepository.save(district);
+		}
+		
+		return district;
+	}
+	
+	public Town getTown(String name,District ilce,List<Town> list) {
+		Town town = null;
+		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+			Town townTemp = (Town) iterator.next();
+			if(townTemp.getName().equals(name)) {
+				town = townTemp;
+				break;
+			}
+		}
+	
+		if(town == null) {
+			town = new Town();
+			town.setName(name);
+			town.setDistrict(ilce);;
+			town.setCompleted(false);
+			townRepository.save(town);
+		}
+		
+		return town;
+	}
+	
+	public Street getStreet(String name,Town mahalle,List<Street> list) {
+		Street street = null;
+		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+			Street streetTemp = (Street) iterator.next();
+			if(streetTemp.getName().equals(name)) {
+				street = streetTemp;
+				break;
+			}
+		}
+		if(street == null) {
+			street = new Street();
+			street.setName(name);
+			street.setTown(mahalle);
+			street.setCompleted(false);
+			streetRepository.save(street);
+		}
+		
+		return street;
+	}
+	
+	public Building getBuilding(KeyValueDTO dto,Street street,List<Building> list) throws Exception {
+		String key = dto.getKey();
+		String[] values = key.split("-");
+		
+		String number="";
+		String name = "";
+		if (values.length>0) {
+			number = key.split("-")[0];
+		}
+		if (values.length>1) {
+			name = key.split("-")[1];
+		}
+		
+		Building building = null;
+		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+			Building buildingTemp = (Building) iterator.next();
+			if(buildingTemp.getName().equals(name) && buildingTemp.getNumber().equals(number)) {
+				building = buildingTemp;
+				break;
+			}
+		}
+		
+		if(building == null) {
+			building = new Building();
+			building.setName("name");
+			building.setNumber("number");
+			building.setStreet(street);	
+			List<String> coords = getKapiNo(dto.getValue());
+			building.setLat(coords.get(0));
+			building.setLng(coords.get(1));
+			streetRepository.save(street);
+		}
+		
+		return building;
+	}
+	
+	public void migrate() throws Exception {
+		insert();
+	
+	}
+	
+	
+	//insert code
+	/*
+	City city = cityRepository.findOneByName(cityName);
+		
+		List<KeyValueDTO> ilceList = getIlceList();
+		for (Iterator iterator = ilceList.iterator(); iterator.hasNext();) {
+			KeyValueDTO ilce = (KeyValueDTO) iterator.next();
+			
+			List<KeyValueDTO> mahalleList = getMahalleList(ilce.getValue());
+			for (Iterator iterator2 = mahalleList.iterator(); iterator2.hasNext();) {
+				KeyValueDTO mahalle = (KeyValueDTO) iterator2.next();
+				
+				List<KeyValueDTO> sokakList = getSokakList(mahalle.getValue());
+				for (Iterator iterator3 = sokakList.iterator(); iterator3.hasNext();) {
+					KeyValueDTO sokak = (KeyValueDTO) iterator3.next();
+					List<KeyValueDTO> binaList = getBinaList(sokak.getValue(),"");
+					
+				}
+			}
+		}
+		*/ 
+	
 }
