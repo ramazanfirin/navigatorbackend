@@ -199,6 +199,8 @@ public class KayseriDataServiceService implements CbsDataService{
 				String onclik=onclickList.get(0).attr("onclick");
 				
 				onclik = onclik.replace("JSBinaCiz", "");
+				onclik = onclik.replace("JSKapiNumarasiCiz", "");
+				
 				onclik = onclik.replace("(", "");
 				onclik = onclik.replace(")", "");
 				onclik = onclik.replace("\"", "");
@@ -442,7 +444,14 @@ List<KeyValueDTO> returnList= new ArrayList<KeyValueDTO>();
 					if(street.isCompleted())
 						continue;
 					
-					List<KeyValueDTO> binaList = getBinaList(sokak.getValue(),"");
+					List<KeyValueDTO> binaList;
+					try {
+						binaList = getBinaList(sokak.getValue(),"");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						continue;
+					}
 					for (Iterator iterator4 = binaList.iterator(); iterator4.hasNext();) {
 						KeyValueDTO keyValueDTO = (KeyValueDTO) iterator4.next();
 						List<Building> buildingList = buildingRepository.findBuildingByStreetId(town.getId());
@@ -553,13 +562,18 @@ List<KeyValueDTO> returnList= new ArrayList<KeyValueDTO>();
 		
 		if(building == null) {
 			building = new Building();
-			building.setName("name");
-			building.setNumber("number");
+			building.setName(name);
+			building.setNumber(number);
 			building.setStreet(street);	
-			List<String> coords = getKapiNo(dto.getValue());
-			building.setLat(coords.get(0));
-			building.setLng(coords.get(1));
-			streetRepository.save(street);
+			try {
+				List<String> coords = getKapiNo(dto.getValue());
+				building.setLat(coords.get(0));
+				building.setLng(coords.get(1));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			buildingRepository.save(building);
 		}
 		
 		return building;

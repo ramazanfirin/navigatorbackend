@@ -83,7 +83,9 @@ public class KayseriDataServiceIntTest {
     @Test
     @Transactional
     public void getBinaList() throws Exception {
-    	List<KeyValueDTO> list =  dataServiceService.getBinaList("NO=257690&AD=SEYHAN%20SK.","");
+    	String test = "NO=257690&AD=SEYHAN%20SK.";
+    	test = "NO=362755&AD=ŞEHİT%20ABDİ%20ALTEMEL%20CD.";
+    	List<KeyValueDTO> list =  dataServiceService.getBinaList(test,"");
     	
     	assertThat(list.size()).isEqualTo(8);
     }
