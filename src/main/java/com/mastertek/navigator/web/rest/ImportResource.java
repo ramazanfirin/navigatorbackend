@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mastertek.navigator.service.IstanbulDataService;
 import com.mastertek.navigator.service.KayseriDataServiceService;
 
 /**
@@ -20,11 +21,14 @@ public class ImportResource {
     
     private final KayseriDataServiceService kayseriDataServiceService;
     
+    private final IstanbulDataService istanbulDataService;
     
     
-    public ImportResource(KayseriDataServiceService kayseriDataServiceService) {
+    
+    public ImportResource(KayseriDataServiceService kayseriDataServiceService,IstanbulDataService istanbulDataService) {
 		super();
 		this.kayseriDataServiceService = kayseriDataServiceService;
+		this.istanbulDataService = istanbulDataService;
 	}
 
 
@@ -35,8 +39,8 @@ public class ImportResource {
     */
     @GetMapping("/import-kayseri")
     public String importKayseri() throws Exception {
-        kayseriDataServiceService.migrate();
-    	
+        //kayseriDataServiceService.migrate();
+    	istanbulDataService.migrate();
     	return "importKayseri";
     }
 

@@ -4,6 +4,8 @@ public class KeyValueDTO {
 String key;
 String value;
 
+String lat;
+String lng;
 
 
 public KeyValueDTO() {
@@ -26,5 +28,17 @@ public String getValue() {
 }
 public void setValue(String value) {
 	this.value = value;
+}
+public String getLat() {
+	return lat;
+}
+public void setLat(String lat) {
+	this.lat = lat;
+}
+public String getLng() {
+	return lng;
+}
+public void setLng(String lng) {
+	this.lng = lng;
 }
 }

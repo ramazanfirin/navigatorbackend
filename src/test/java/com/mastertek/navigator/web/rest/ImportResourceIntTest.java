@@ -1,6 +1,7 @@
 package com.mastertek.navigator.web.rest;
 
 import com.mastertek.navigator.NavigatorbackendApp;
+import com.mastertek.navigator.service.IstanbulDataService;
 import com.mastertek.navigator.service.KayseriDataServiceService;
 
 import org.junit.Before;
@@ -28,11 +29,13 @@ public class ImportResourceIntTest {
     
     private KayseriDataServiceService kayseriDataServiceService;
 
+    private IstanbulDataService istanbulDataService;
+    
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        ImportResource importResource = new ImportResource(kayseriDataServiceService);
+        ImportResource importResource = new ImportResource(kayseriDataServiceService,istanbulDataService);
         restMockMvc = MockMvcBuilders
             .standaloneSetup(importResource)
             .build();
