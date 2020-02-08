@@ -1,0 +1,15 @@
+
+version: '3.1'
+services:
+    navigatorbackend-app:
+        image: ramazanfirin/navigatorbackend
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://ec2-44-231-193-13.us-west-2.compute.amazonaws.com:3306/navigatorbackend?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - SPRING_DATASOURCE_USERNAME=root
+            - SPRING_DATASOURCE_PASSWORD=
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SERVER_PORT=8090
+        ports:
+            - 8090:8090
+
