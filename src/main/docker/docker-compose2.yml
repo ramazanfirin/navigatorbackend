@@ -1,0 +1,25 @@
+version: '3'
+services:
+    navigatorbackend-app:
+        image: ramazanfirin/navigatorbackend
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://navigatorbackend-mysql:3306/navigatorbackend?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true
+            - SPRING_DATASOURCE_USERNAME=root
+            - SPRING_DATASOURCE_PASSWORD=ra5699mo
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SERVER_PORT=8090
+        ports:
+            - 8090:8090
+    navigatorbackend-mysql:
+        image: mysql:5.7.20
+        volumes:
+            - ~/volumes/jhipster/navigatorbackend/mysql/:/var/lib/mysql/
+        environment:
+            - MYSQL_USER=navigatorbackend
+            - MYSQL_PASSWORD=ra5699mo
+            - MYSQL_ROOT_PASSWORD=ra5699mo
+            - MYSQL_DATABASE=navigatorbackend
+        ports:
+            - 3306:3306
+        command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8 --explicit_defaults_for_timestamp
