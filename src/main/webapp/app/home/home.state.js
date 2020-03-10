@@ -49,6 +49,27 @@
                     $state.go('^');
                 });
             }]
+        })
+        .state('home.buildingselect', {
+            url: '/home/buildingselect',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/home/buildingselect.html',
+                    controller: 'BuildingSelectController',
+                    controllerAs: 'vm',
+                    size: 'md',
+                    resolve: {
+                        
+                    }
+                }).result.then(function() {
+                    $state.go('user-management', null, { reload: true });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
         });
         ;
     }

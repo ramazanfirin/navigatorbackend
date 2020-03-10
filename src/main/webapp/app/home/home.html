@@ -43,13 +43,29 @@
 	        	</button>
         	</div>
         	
-        	<br>
-        	<br>
-        	<br>
-        	<br>
-        	<br>
-        	<br><br>
+        	<div class="form-group">
+            	<label>Onemli Noktalar</label>
+            	<select class="form-control" name="interestPoint" ng-model="vm.selectedInterestPoint"
+                    ng-options="interestPoint.name for interestPoint in vm.interestPoints">
+            	</select>
+        	</div>
+        	
+        	<div class="form-group">
+	        	<button type="submit" class="btn btn-primary" ng-click="vm.showInterestPointDetails()">
+	            	<span class="glyphicon glyphicon-save"></span>&nbsp;<span>Getir</span>
+	        	</button>
+        	</div>
         
+        	<div class="form-group">
+            	<label>Bina Ismi</label>
+            	<input type="text" class="form-control" name="name23" id="field_name" ng-model="vm.buildingName"/>
+        	</div>
+        	
+        	<div class="form-group">
+	        	<button type="submit" class="btn btn-primary" ng-click="vm.findByBuildingName()">
+	            	<span class="glyphicon glyphicon-save"></span>&nbsp;<span>Getir</span>
+	        	</button>
+        	</div>
   
         </div>
         <div class="col-md-10">

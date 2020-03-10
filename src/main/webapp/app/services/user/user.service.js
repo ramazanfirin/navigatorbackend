@@ -15,6 +15,7 @@
             'getSokakList': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/getSokakList/:param1'},
             'getBinaList': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/getBinaList/:param1'},
             'getCoordinate': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/getCoordinate/:param1'},
+            'search': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/search/:param1'},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

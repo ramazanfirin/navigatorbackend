@@ -5,9 +5,9 @@
         .module('navigatorbackendApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state','User','AlertService','NgMap','$sessionStorage','Station','Vehicle','Task'];
+    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state','User','AlertService','NgMap','$sessionStorage','Station','Vehicle','Task','InterestPoint'];
 
-    function HomeController ($scope, Principal, LoginService, $state,User,AlertService,NgMap,$sessionStorage,Station,Vehicle,Task) {
+    function HomeController ($scope, Principal, LoginService, $state,User,AlertService,NgMap,$sessionStorage,Station,Vehicle,Task,InterestPoint) {
         var vm = this;
 
         vm.account = null;
@@ -19,9 +19,21 @@
         vm.updateSokak = updateSokak;
         vm.updateBina = updateBina;
         vm.updateCoordinate = updateCoordinate;
+        vm.showInterestPointDetails = showInterestPointDetails;
+        vm.findByBuildingName = findByBuildingName;
+        vm.interestPoints = [];
+        
+        vm.sessionStorage = $sessionStorage;	
+        
+        InterestPoint.query(function(result) {
+            vm.interestPoints = result;
+           
+        });
         
         var marker = new google.maps.Marker();
-        //var map = NgMap.getMap();
+        var interestPointMarker = new google.maps.Marker();
+        interestPointMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+
         var map ;
         
         marker.addListener('click', function() {
@@ -124,14 +136,48 @@
         
         function onSuccessGetCoordinate(data, headers) {
         	vm.coordinates = data;
-
-            var latlng = new google.maps.LatLng(vm.coordinates[1].value, vm.coordinates[0].value);
+        	addMarker(vm.coordinates[1].value, vm.coordinates[0].value,'');
+            
+        }
+        
+        function addMarker(lat,lng,title){
+        	var latlng = new google.maps.LatLng(lat, lng);
             marker.setPosition(latlng);
+            marker.setTitle(title);
             
             map.setCenter(latlng);
             map.setZoom(18);
             //map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 18));
             marker.setMap(map);
         }
+        
+        function addInterestPointMarker(lat,lng,title){
+        	var latlng = new google.maps.LatLng(lat, lng);
+            interestPointMarker.setPosition(latlng);
+            interestPointMarker.setTitle(title);
+            
+            map.setCenter(latlng);
+            map.setZoom(18);
+            //map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 18));
+            interestPointMarker.setMap(map);
+        }
+        
+        function showInterestPointDetails(){
+        	addInterestPointMarker(vm.selectedInterestPoint.lat,vm.selectedInterestPoint.lng,vm.selectedInterestPoint.name);
+        }
+        
+        function findByBuildingName(){
+        	User.search({
+        		param1:vm.buildingName
+        	}, onSuccessSearch, onError);
+        }
+        
+        function onSuccessSearch(data, headers) {
+        	vm.sessionStorage.buildings = data;
+        	vm.sessionStorage.map = map;
+        	vm.sessionStorage.marker = marker;
+        	$state.go('home.buildingselect');
+        }
+        
     }
 })();

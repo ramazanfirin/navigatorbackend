@@ -70,4 +70,9 @@ public class CbsDataControllerResource {
 	
     	return result;
     }
+    
+    @GetMapping("/search/{param1}")
+    public List<KeyValueDTO> search(@PathVariable String param1) throws Exception {
+        return kayseriDataServiceService.genelArama(param1);
+    }
 }
