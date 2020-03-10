@@ -59,6 +59,12 @@ entity Task{
 	lng String
 }
 
+entity InterestPoint{
+	name String
+	lat String
+	lng String
+}
+
 relationship ManyToOne {
   District{city} to City
 }

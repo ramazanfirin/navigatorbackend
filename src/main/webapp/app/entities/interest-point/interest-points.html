@@ -1,0 +1,60 @@
+<div>
+    <h2 data-translate="navigatorbackendApp.interestPoint.home.title">Interest Points</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="interest-point.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="navigatorbackendApp.interestPoint.home.createLabel">
+                        Create new Interest Point
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="navigatorbackendApp.interestPoint.name">Name</span></th>
+                    <th><span data-translate="navigatorbackendApp.interestPoint.lat">Lat</span></th>
+                    <th><span data-translate="navigatorbackendApp.interestPoint.lng">Lng</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="interestPoint in vm.interestPoints track by interestPoint.id">
+                    <td><a ui-sref="interest-point-detail({id:interestPoint.id})">{{interestPoint.id}}</a></td>
+                    <td>{{interestPoint.name}}</td>
+                    <td>{{interestPoint.lat}}</td>
+                    <td>{{interestPoint.lng}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="interest-point-detail({id:interestPoint.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="interest-point.edit({id:interestPoint.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="interest-point.delete({id:interestPoint.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

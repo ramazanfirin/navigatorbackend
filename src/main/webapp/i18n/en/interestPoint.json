@@ -1,0 +1,23 @@
+{
+    "navigatorbackendApp": {
+        "interestPoint" : {
+            "home": {
+                "title": "Interest Points",
+                "createLabel": "Create a new Interest Point",
+                "createOrEditLabel": "Create or edit a Interest Point"
+            },
+            "created": "A new Interest Point is created with identifier {{ param }}",
+            "updated": "A Interest Point is updated with identifier {{ param }}",
+            "deleted": "A Interest Point is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Interest Point {{ id }}?"
+            },
+            "detail": {
+                "title": "Interest Point"
+            },
+            "name": "Name",
+            "lat": "Lat",
+            "lng": "Lng"
+        }
+    }
+}

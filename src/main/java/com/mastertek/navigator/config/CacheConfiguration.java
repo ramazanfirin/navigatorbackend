@@ -49,6 +49,7 @@ public class CacheConfiguration {
             cm.createCache(com.mastertek.navigator.domain.Station.class.getName(), jcacheConfiguration);
             cm.createCache(com.mastertek.navigator.domain.Vehicle.class.getName(), jcacheConfiguration);
             cm.createCache(com.mastertek.navigator.domain.Task.class.getName(), jcacheConfiguration);
+            cm.createCache(com.mastertek.navigator.domain.InterestPoint.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
