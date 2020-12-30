@@ -24,6 +24,9 @@
         vm.findByBuildingName = findByBuildingName;
         vm.interestPoints = [];
         vm.selectedIl;
+        vm.selectedIlce;
+        vm.selectedMahalle;
+        vm.selectedSokak;
         
         vm.sessionStorage = $sessionStorage;	
         
@@ -105,9 +108,10 @@
         }
         
         function updateMahalle(ilce){
+        	vm.selectedIlce = ilce;
         	User.getMahalleList({
         		param1:ilce.value,
-        		city:vm.selectedIl.key
+        		city:vm.selectedIl.value
         	}, onSuccessGetMahalle, onError);
         }
         
@@ -117,9 +121,11 @@
         }
         
         function updateSokak(mahalle){
+        	vm.selectedMahalle = mahalle;
         	User.getSokakList({
-        		param1:mahalle.value,
-        		city:vm.selectedIl.key
+        		mahalleID:vm.selectedMahalle.value,
+        		ilceID:vm.selectedIlce.value,
+        		city:vm.selectedIl.value
         	}, onSuccessGetSokak, onError);
         }
         
@@ -129,9 +135,12 @@
         }
     
         function updateBina(sokak){
+        	vm.selectedSokak = sokak;
         	User.getBinaList({
         		param1:sokak.value,
-        		city:vm.selectedIl.key
+        		mahalleID:vm.selectedMahalle.value,
+        		ilceID:vm.selectedIlce.value,
+        		city:vm.selectedIl.value
         	}, onSuccessGetBina, onError);
         }
         
@@ -142,9 +151,22 @@
         
         
         function updateCoordinate(bina){
+        	var param1 = 0 ;
+        	var lat = 0;
+        	var lng = 0
+        	if(bina.value){
+        		param1 = bina.value
+        	}else{
+        		lat = bina.lat;
+        		lng = bina.lng
+        		
+        	}
+        	
         	User.getCoordinate({
-        		param1:bina.value,
-        		city:vm.selectedIl.key
+        		param1:param1,
+        		lat:lng,
+        		lng:lat,
+        		city:vm.selectedIl.value
         	}, onSuccessGetCoordinate, onError);
         }
         

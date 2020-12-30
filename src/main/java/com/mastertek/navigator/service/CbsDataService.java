@@ -11,7 +11,7 @@ public interface CbsDataService {
 	List <KeyValueDTO> getBinaList(String... url1) throws Exception;
 	List <KeyValueDTO> genelAramaByNumber(String dto) throws Exception;
 	List <KeyValueDTO> genelArama(String string) throws Exception;
-	List <String> getKapiNo(String binaNo) throws Exception;
+	List <String> getKapiNo(String binaNo,String lat,String lng) throws Exception;
 	String getCityName();
 	
 }

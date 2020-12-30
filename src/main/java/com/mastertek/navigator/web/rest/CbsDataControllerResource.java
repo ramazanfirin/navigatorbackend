@@ -79,24 +79,24 @@ public class CbsDataControllerResource {
     	return proxy.getMahalleList(param1);
     }
 
-    @GetMapping("/getSokakList/{param1}/{city}")
-    public List<KeyValueDTO> getSokakList(@PathVariable String param1,@PathVariable String city) throws Exception {
+    @GetMapping("/getSokakList/{param1}/{ilceID}/{city}")
+    public List<KeyValueDTO> getSokakList(@PathVariable String param1,@PathVariable String ilceID,@PathVariable String city) throws Exception {
     	CbsDataService proxy = getProxy(city);
-    	return proxy.getSokakList(param1);
+    	return proxy.getSokakList(param1,ilceID);
     }
     
-    @GetMapping("/getBinaList/{param1}/{city}")
-    public List<KeyValueDTO> getBinaList(@PathVariable String param1,@PathVariable String city) throws Exception {
+    @GetMapping("/getBinaList/{param1}/{mahalleID}/{ilceID}/{city}")
+    public List<KeyValueDTO> getBinaList(@PathVariable String param1,@PathVariable String mahalleID,@PathVariable String ilceID,@PathVariable String city) throws Exception {
     	CbsDataService proxy = getProxy(city);
-        return proxy.getBinaList(param1, "");
+        return proxy.getBinaList(param1,mahalleID,ilceID );
     }
     
-    @GetMapping("/getCoordinate/{param1}/{city}")
-    public List<KeyValueDTO> getCoordinate(@PathVariable String param1,@PathVariable String city) throws Exception {
+    @GetMapping("/getCoordinate/{param1}/{lat}/{lng}/{city}")
+    public List<KeyValueDTO> getCoordinate(@PathVariable String param1,@PathVariable String lat,@PathVariable String lng,@PathVariable String city) throws Exception {
     	CbsDataService proxy = getProxy(city);
     	
     	List<KeyValueDTO> result = new ArrayList<KeyValueDTO>();
-    	List<String> list =proxy.getKapiNo(param1);
+    	List<String> list =proxy.getKapiNo(param1,lat,lng);
     	result.add(new KeyValueDTO("lat",list.get(0)));
     	result.add(new KeyValueDTO("lng",list.get(1)));
     	

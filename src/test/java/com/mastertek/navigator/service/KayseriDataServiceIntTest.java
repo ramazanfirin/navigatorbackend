@@ -93,7 +93,7 @@ public class KayseriDataServiceIntTest {
     @Test
     @Transactional
     public void getKapiNo() throws Exception {
-    	List<String> result =  dataServiceService.getKapiNo("225962");
+    	List<String> result =  dataServiceService.getKapiNo("225962","","");
     	
     	assertThat(result).isNotNull();
     }
@@ -125,7 +125,7 @@ public class KayseriDataServiceIntTest {
     	KeyValueDTO dto = binaList.get(1);
     	assertThat(dto.getValue()).isEqualTo("225962");
     	
-    	List<String> result =  dataServiceService.getKapiNo(dto.getValue());
+    	List<String> result =  dataServiceService.getKapiNo(dto.getValue(),"","");
     	assertThat(result).isNotNull();
     }
     

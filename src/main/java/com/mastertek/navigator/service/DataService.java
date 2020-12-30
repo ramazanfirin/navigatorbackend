@@ -40,7 +40,7 @@ public abstract class DataService {
 	@Autowired
 	BuildingRepository buildingRepository;
 	
-	public abstract  List<String> getKapiNo(String binaNo) throws Exception;
+	public abstract  List<String> getKapiNo(String binaNo,String lat,String lng) throws Exception;
 	
 	public abstract List<KeyValueDTO> getSokakList(String... url1) throws Exception;
 	
@@ -143,7 +143,7 @@ public abstract class DataService {
 			building.setNumber(number);
 			building.setStreet(street);	
 			try {
-				List<String> coords = getKapiNo(dto.getValue());
+				List<String> coords = getKapiNo(dto.getValue(),"","");
 				building.setLat(coords.get(0));
 				building.setLng(coords.get(1));
 			} catch (Exception e) {

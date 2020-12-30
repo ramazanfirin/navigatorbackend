@@ -120,7 +120,7 @@ public class KayseriDataServiceService extends DataService implements CbsDataSer
 	@Override
 	public List<KeyValueDTO> getSokakList(String... url1) throws Exception {
 		String urlEncoded = URLEncoder.encode(url1[0], "UTF-8");
-		String url = "http://cbs.kayseri.bel.tr/Kcsbm.aspx?"+url1[0];
+		String url = "http://cbs.kayseri.bel.tr/Kcsbm.aspx?"+url1[1];
 		url="http://cbs.kayseri.bel.tr/GenelSayfalar/AdresBilesenleri/Kcsbm.aspx?"+url1[0].replace(" ", "%20");
 		List  <KeyValueDTO> selectItemList = new ArrayList<KeyValueDTO>();
 	
@@ -326,7 +326,7 @@ List<KeyValueDTO> returnList= new ArrayList<KeyValueDTO>();
 	}
 
 	@Override
-	public List<String> getKapiNo(String binaNo) throws Exception {
+	public List<String> getKapiNo(String binaNo,String lat,String lng) throws Exception {
 		List<String> returnList= new ArrayList<String>();
 		
 		String url = "https://cbs.kayseri.bel.tr/Rehber.aspx/GetKapiBina";
@@ -388,7 +388,6 @@ List<KeyValueDTO> returnList= new ArrayList<KeyValueDTO>();
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
 	}
-	
-	
-	
+
+
 }

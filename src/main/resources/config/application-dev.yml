@@ -32,19 +32,15 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/navigatorbackend?useUnicode=true&characterEncoding=utf8&useSSL=false&&allowPublicKeyRetrieval=true
-        #url: jdbc:mysql://navigator.masterteknoloji.net:3306/navigatorbackend?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true
-        username: root
-        password: ra5699mo
-        hikari:
-            data-source-properties:
-                cachePrepStmts: true
-                prepStmtCacheSize: 250
-                prepStmtCacheSqlLimit: 2048
-                useServerPrepStmts: true
+        url: jdbc:h2:file:./target/h2db/db/navigatorbackend;DB_CLOSE_DELAY=-1
+        username: navigatorbackend
+        password:
+    h2:
+        console:
+            enabled: false
     jpa:
-        database-platform: org.hibernate.dialect.MySQL8Dialect
-        database: MYSQL
+        database-platform: io.github.jhipster.domain.util.FixedH2Dialect
+        database: H2
         show-sql: true
         properties:
             hibernate.id.new_generator_mappings: true

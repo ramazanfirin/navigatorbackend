@@ -48,15 +48,17 @@ public class IstanbulDataService  implements CbsDataService {
 	}
 
 	@Override
-	public List<String> getKapiNo(String binaNo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> getKapiNo(String binaNo,String lat,String lng) throws Exception {
+		List<String> result = new ArrayList<String>();
+		result.add(lat);
+    	result.add(lng);
+		return result;
 	}
 
 	@Override
 	public List<KeyValueDTO> getSokakList(String... url1) throws Exception {
 		List<KeyValueDTO> resultList = new ArrayList<KeyValueDTO>();
-		String url = "http://cbsproxy.ibb.gov.tr/?SehirHaritasiYolListele151&&ilceID="+url1[0]+"&mahalleID="+url1[1]+"&yolAdi=";		
+		String url = "http://cbsproxy.ibb.gov.tr/?SehirHaritasiYolListele151&&ilceID="+url1[1]+"&mahalleID="+url1[0]+"&yolAdi=";		
 		HttpGet httpPost = new HttpGet(url);
 		String result = sendRequest(httpPost);
 		
@@ -123,7 +125,7 @@ public class IstanbulDataService  implements CbsDataService {
 	@Override
 	public List<KeyValueDTO> getBinaList(String... url1) throws Exception {
 		List<KeyValueDTO> resultList = new ArrayList<KeyValueDTO>();
-		String url = "http://cbsproxy.ibb.gov.tr/?SehirHaritasiKapiListele151&kapiNo=&yolAdi=&&ilceID="+url1[0]+"&mahalleID="+url1[1]+"&yolid="+URLEncoder.encode(url1[2], "UTF-8");		
+		String url = "http://cbsproxy.ibb.gov.tr/?SehirHaritasiKapiListele151&kapiNo=&yolAdi=&&ilceID="+url1[2]+"&mahalleID="+url1[1]+"&yolid="+URLEncoder.encode(url1[0], "UTF-8");		
 		HttpGet httpPost = new HttpGet(url);
 		String result = sendRequest(httpPost);
 		
