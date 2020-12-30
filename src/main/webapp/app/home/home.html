@@ -10,7 +10,14 @@
 
         <div class="col-md-2">
             <div class="form-group">
-            	<label>İlçe</label>
+            	<label>İl</label>
+            	<select class="form-control" name="il" ng-model="vm.selectedIl" ng-change="vm.updateIlce(vm.selectedIl)"
+                    ng-options="il.key for il in vm.ilList">
+            	</select>
+        	</div>
+            
+            <div class="form-group">
+            	<label>Ä°lÃ§e</label>
             	<select class="form-control" name="ilce" ng-model="vm.selectedIlce" ng-change="vm.updateMahalle(vm.selectedIlce)"
                     ng-options="ilce.key for ilce in vm.ilceList">
             	</select>

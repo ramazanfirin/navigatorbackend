@@ -40,7 +40,7 @@ public class ImportResource {
     @GetMapping("/import-kayseri")
     public String importKayseri() throws Exception {
         //kayseriDataServiceService.migrate();
-    	istanbulDataService.migrate();
+    	//istanbulDataService.migrate();
     	return "importKayseri";
     }
 

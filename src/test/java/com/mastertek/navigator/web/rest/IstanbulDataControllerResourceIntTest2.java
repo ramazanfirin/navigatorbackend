@@ -22,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mastertek.navigator.NavigatorbackendApp;
+import com.mastertek.navigator.repository.CityRepository;
+import com.mastertek.navigator.service.IstanbulDataService;
 import com.mastertek.navigator.service.KayseriDataServiceService;
 import com.mastertek.navigator.web.rest.vm.KeyValueDTO;
 /**
@@ -31,18 +33,24 @@ import com.mastertek.navigator.web.rest.vm.KeyValueDTO;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = NavigatorbackendApp.class)
-public class CbsDataControllerResourceIntTest {
+public class IstanbulDataControllerResourceIntTest2 {
 
     private MockMvc restMockMvc;
 
     @Autowired
     KayseriDataServiceService kayseriDataServiceService;
     
+    @Autowired
+    IstanbulDataService istanbulDataService;
+
+    @Autowired
+    CityRepository cityRepository;
+    
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        CbsDataControllerResource cbsDataControllerResource = new CbsDataControllerResource(kayseriDataServiceService);
+        CbsDataControllerResource cbsDataControllerResource = new CbsDataControllerResource(kayseriDataServiceService,istanbulDataService,cityRepository);
         restMockMvc = MockMvcBuilders
             .standaloneSetup(cbsDataControllerResource)
             .build();
@@ -61,13 +69,13 @@ public class CbsDataControllerResourceIntTest {
     @Transactional
     public void getIlceList() throws Exception {
         
-    	MvcResult result = restMockMvc.perform(get("/api/cbs-data-controller/getIlceList")
+    	MvcResult result = restMockMvc.perform(get("/api/cbs-data-controller/getIlceList/34")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
     	ObjectMapper mapper = new ObjectMapper();
         List<KeyValueDTO> asList = mapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<KeyValueDTO>>() { });
-        assertThat(asList.size()).isEqualTo(16);
+        assertThat(asList.size()).isEqualTo(39);
     }
     
     @Test

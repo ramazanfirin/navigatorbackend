@@ -15,6 +15,7 @@
         vm.ilceList = null;
         vm.login = LoginService.open;
         vm.register = register;
+        vm.updateIlce = updateIlce;
         vm.updateMahalle = updateMahalle;
         vm.updateSokak = updateSokak;
         vm.updateBina = updateBina;
@@ -22,6 +23,7 @@
         vm.showInterestPointDetails = showInterestPointDetails;
         vm.findByBuildingName = findByBuildingName;
         vm.interestPoints = [];
+        vm.selectedIl;
         
         vm.sessionStorage = $sessionStorage;	
         
@@ -78,24 +80,34 @@
             $state.go('register');
         }
         
+        User.getIlList({ }, onSuccessGetIl, onError);
         
-        
-        User.getIlceList({ }, onSuccessGetIlce, onError);
-        
-        function onSuccessGetIlce(data, headers) {
-        	vm.ilceList = data;
-        	vm.selectedIlce = data[0];
+        function onSuccessGetIl(data, headers) {
+        	vm.ilList = data;
+        	vm.selectedIl = data[0];
            
         }
+        
         function onError(error) {
             AlertService.error(error.data.message);
         }
         
+        function updateIlce(il){
+        	User.getIlceList({
+        		city:vm.selectedIl.value
+        	}, onSuccessGetIlce, onError);
+        	
+        }
         
+        function onSuccessGetIlce(data, headers) {
+        	vm.ilceList = data;
+           
+        }
         
         function updateMahalle(ilce){
         	User.getMahalleList({
-        		param1:ilce.value
+        		param1:ilce.value,
+        		city:vm.selectedIl.key
         	}, onSuccessGetMahalle, onError);
         }
         
@@ -104,10 +116,10 @@
            
         }
         
-        
         function updateSokak(mahalle){
         	User.getSokakList({
-        		param1:mahalle.value
+        		param1:mahalle.value,
+        		city:vm.selectedIl.key
         	}, onSuccessGetSokak, onError);
         }
         
@@ -118,7 +130,8 @@
     
         function updateBina(sokak){
         	User.getBinaList({
-        		param1:sokak.value
+        		param1:sokak.value,
+        		city:vm.selectedIl.key
         	}, onSuccessGetBina, onError);
         }
         
@@ -130,7 +143,8 @@
         
         function updateCoordinate(bina){
         	User.getCoordinate({
-        		param1:bina.value
+        		param1:bina.value,
+        		city:vm.selectedIl.key
         	}, onSuccessGetCoordinate, onError);
         }
         

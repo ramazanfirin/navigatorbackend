@@ -33,6 +33,7 @@ spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:mysql://localhost:3306/navigatorbackend?useUnicode=true&characterEncoding=utf8&useSSL=false&&allowPublicKeyRetrieval=true
+        #url: jdbc:mysql://navigator.masterteknoloji.net:3306/navigatorbackend?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true
         username: root
         password: ra5699mo
         hikari:
@@ -42,7 +43,7 @@ spring:
                 prepStmtCacheSqlLimit: 2048
                 useServerPrepStmts: true
     jpa:
-        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        database-platform: org.hibernate.dialect.MySQL8Dialect
         database: MYSQL
         show-sql: true
         properties:

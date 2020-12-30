@@ -5,6 +5,6 @@
         .module('navigatorbackendApp')
         .constant('VERSION', "0.0.1-SNAPSHOT")
         .constant('DEBUG_INFO_ENABLED', false)
-        .constant('BUILD_TIMESTAMP', 1574020297822)
+        .constant('BUILD_TIMESTAMP', 1583880303099)
 ;
 })();

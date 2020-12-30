@@ -10,11 +10,12 @@
     function User ($resource) {
         var service = $resource('api/users/:login', {}, {
             'query': {method: 'GET', isArray: true},
-            'getIlceList': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/getIlceList'},
-            'getMahalleList': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/getMahalleList/:param1'},
-            'getSokakList': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/getSokakList/:param1'},
-            'getBinaList': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/getBinaList/:param1'},
-            'getCoordinate': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/getCoordinate/:param1'},
+            'getIlList': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/getIlList'},
+            'getIlceList': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/getIlceList/:city'},
+            'getMahalleList': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/getMahalleList/:param1/:city'},
+            'getSokakList': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/getSokakList/:param1/:city'},
+            'getBinaList': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/getBinaList/:param1/:city'},
+            'getCoordinate': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/getCoordinate/:param1/:city'},
             'search': {method: 'GET', isArray: true,url:'/api/cbs-data-controller/search/:param1'},
             'get': {
                 method: 'GET',
